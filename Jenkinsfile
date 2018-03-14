@@ -1,11 +1,7 @@
-def label = "pod.${env.BUILD_NUMBER}.${env.JOB_NAME}".replace('-', '_').replace('/', '_').take(60)
 def gitUrl = 'https://github.com/chomchob/alpine-curl-docker'
 def gitBranch = 'refs/heads/master'
 
-podTemplate(
-  label: label,
-) {
-node(label) {
+node('master') {
   stage('build docker image') {
     def buildParameters = [
       string(name: 'GIT_URL', value: gitUrl), 
@@ -22,5 +18,4 @@ node(label) {
       parameters: buildParameters
     )
   }
-}
 }
